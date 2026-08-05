@@ -40,23 +40,15 @@ Backend API: **Coming Soon**
 
 ## 📸 Screenshots
 
-### Landing Page
-
-> *(Add screenshot here)*
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/864d8101-87dd-4af4-9473-eb054633381e" />
+---
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e0d5b3c3-11e2-4eaf-8164-87946ad5dfec" />
 
 ---
-
 ### Dashboard
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8e855a7d-a24a-4601-80f8-ca726083c332" />
 
-> *(Add screenshot here)*
 
----
-
-### Task Details
-
-> *(Add screenshot here)*
-
----
 
 ## 🛠 Tech Stack
 
