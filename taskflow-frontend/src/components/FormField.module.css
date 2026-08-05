@@ -1,0 +1,29 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-soft);
+}
+
+.input {
+  border: none;
+  border-bottom: 1.5px solid var(--color-ink-soft);
+  background: transparent;
+  padding: var(--space-2) var(--space-1);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+.input:focus {
+  outline: none;
+  border-bottom-color: var(--color-moss);
+}

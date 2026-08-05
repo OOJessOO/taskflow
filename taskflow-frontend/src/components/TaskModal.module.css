@@ -1,0 +1,135 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(35, 39, 51, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  z-index: 100;
+}
+
+.modal {
+  background: var(--color-paper-light);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 32px rgba(35, 39, 51, 0.25);
+  padding: var(--space-6);
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ochre);
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: var(--text-base);
+  cursor: pointer;
+  color: var(--color-ink-soft);
+  line-height: 1;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-soft);
+}
+
+.textarea {
+  border: 1.5px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  background: var(--color-paper);
+  padding: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-moss);
+}
+
+.select {
+  border: none;
+  border-bottom: 1.5px solid var(--color-ink-soft);
+  background: transparent;
+  padding: var(--space-2) var(--space-1);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+}
+
+.select:focus {
+  outline: none;
+  border-bottom-color: var(--color-moss);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-6);
+}
+
+.deleteButton {
+  background: none;
+  border: 1px solid var(--color-brick);
+  color: var(--color-brick);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.saveButton {
+  margin-left: auto;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border: none;
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.saveButton:hover {
+  background: var(--color-moss-dark);
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
