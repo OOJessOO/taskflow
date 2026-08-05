@@ -127,7 +127,7 @@ Features include:
 Clone the repository
 
 ```bash
-git clone https://github.com/your-username/taskflow.git
+git clone https://github.com/oojessoo/taskflow.git
 ```
 
 Move into the project
@@ -243,9 +243,9 @@ This project is licensed under the MIT License.
 
 **Your Name**
 
-GitHub: https://github.com/your-username
+GitHub: https://github.com/oojessoo/
 
-LinkedIn: https://linkedin.com/in/your-profile
+LinkedIn: https://linkedin.com/in/fenohery-razanajatovo-5b999239b/
 
 ---
 
