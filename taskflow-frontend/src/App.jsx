@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { TasksProvider } from './context/TasksContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import SvgDefs from './components/SvgDefs';
@@ -13,6 +14,7 @@ import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
+    <LanguageProvider>
     <AuthProvider>
       <TasksProvider>
         <SvgDefs />
@@ -44,5 +46,6 @@ export default function App() {
         </BrowserRouter>
       </TasksProvider>
     </AuthProvider>
+    </LanguageProvider>
   );
 }

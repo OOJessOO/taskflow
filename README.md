@@ -25,6 +25,7 @@ Users can:
 * 🚩 Assign priority levels
 * 🔍 Filter and search tasks
 * 👤 Manage their personal profile
+* 🌍 Switch the interface between French and English
 
 The project follows a clean MVC architecture on the backend and focuses on writing maintainable and scalable code.
 
@@ -59,6 +60,7 @@ Backend API: **Coming Soon**
 * JavaScript (ES6+)
 * CSS3
 * Axios
+* Custom i18n system (FR/EN)
 
 ### Backend
 
@@ -197,7 +199,8 @@ DELETE /api/tasks/:id
 * Task lists
 * Priority levels
 * Due dates
-* Responsive interface
+* Bilingual interface (French / English)
+* Responsive design
 * RESTful API
 * MVC architecture
 * PostgreSQL database

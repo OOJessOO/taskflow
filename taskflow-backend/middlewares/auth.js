@@ -10,7 +10,7 @@ async function requireAuth(req, res, next) {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ message: 'Authentification requise.' });
+      return res.status(401).json({ code: 'AUTH_REQUIRED' });
     }
 
     const token = authHeader.split(' ')[1];
@@ -21,13 +21,13 @@ async function requireAuth(req, res, next) {
     });
 
     if (!user) {
-      return res.status(401).json({ message: 'Utilisateur introuvable.' });
+      return res.status(401).json({ code: 'USER_NOT_FOUND' });
     }
 
     req.user = user;
     next();
   } catch (error) {
-    return res.status(401).json({ message: 'Token invalide ou expiré.' });
+    return res.status(401).json({ code: 'INVALID_TOKEN' });
   }
 }
 

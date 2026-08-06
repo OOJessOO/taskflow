@@ -23,7 +23,7 @@
   /* --- Typographie --- */
   --font-display: serif;
   --font-body: serif;
-  --font-mono: monospace;
+  --font-mono: serif;
 
   /* --- Échelle typographique --- */
   --text-xs: 1rem;

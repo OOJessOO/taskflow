@@ -1,5 +1,7 @@
 import AppShell from '../components/AppShell';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { getErrorMessage } from '../utils/errorMessage';
 import styles from './Profile.module.css';
 import { useState, useRef } from 'react';
 import { uploadAvatar, updateProfile } from '../services/userService';
@@ -8,6 +10,7 @@ import PasswordField from '../components/PasswordField';
 
 export default function Profile() {
   const { user, setUser } = useAuth();
+  const { t } = useLanguage();
   const fileInputRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
@@ -32,7 +35,7 @@ export default function Profile() {
       const avatarUrl = await uploadAvatar(file);
       setUser((prev) => ({ ...prev, avatarUrl }));
     } catch (err) {
-      setUploadError(err.response?.data?.message || 'Échec de l\'envoi. Réessaie.');
+      setUploadError(getErrorMessage(err, t));
     } finally {
       setIsUploading(false);
     }
@@ -68,7 +71,7 @@ export default function Profile() {
       setIsEditing(false);
       setSaveSuccess(true);
     } catch (err) {
-      setSaveError(err.response?.data?.message || 'Échec de la mise à jour. Réessaie.');
+      setSaveError(getErrorMessage(err, t));
     } finally {
       setIsSaving(false);
     }
@@ -77,8 +80,8 @@ export default function Profile() {
   return (
     <AppShell>
       <div className={styles.page}>
-        <p className={styles.eyebrow}>Fiche personnelle</p>
-        <h1 className={styles.title}>Profil</h1>
+        <p className={styles.eyebrow}>{t('profile.eyebrow')}</p>
+        <h1 className={styles.title}>{t('profile.title')}</h1>
 
         <div className={styles.avatarSection}>
           <Avatar user={user} size={200} />
@@ -89,7 +92,7 @@ export default function Profile() {
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
             >
-              {isUploading ? 'Envoi...' : 'Changer la photo'}
+              {isUploading ? t('profile.uploading') : t('profile.changePhoto')}
             </button>
             {uploadError && <p className={styles.avatarError}>{uploadError}</p>}
           </div>
@@ -105,24 +108,24 @@ export default function Profile() {
         {!isEditing && (
           <div className={styles.card}>
             <div className={styles.row}>
-              <span className={styles.label}>Nom</span>
+              <span className={styles.label}>{t('auth.name')}</span>
               <span className={styles.value}>{user?.name}</span>
             </div>
             <div className={styles.row}>
-              <span className={styles.label}>Email</span>
+              <span className={styles.label}>{t('common.email')}</span>
               <span className={styles.value}>{user?.email}</span>
             </div>
             <div className={styles.row}>
-              <span className={styles.label}>Membre depuis</span>
+              <span className={styles.label}>{t('profile.memberSince')}</span>
               <span className={styles.value}>
                 {user?.createdAt ? new Date(user.createdAt).getFullYear() : '—'}
               </span>
             </div>
 
-            {saveSuccess && <p className={styles.success}>Profil mis à jour avec succès.</p>}
+            {saveSuccess && <p className={styles.success}>{t('profile.saveSuccess')}</p>}
 
             <button type="button" className={styles.editButton} onClick={startEditing}>
-              Modifier mes informations
+              {t('profile.editButton')}
             </button>
           </div>
         )}
@@ -132,7 +135,7 @@ export default function Profile() {
             {saveError && <p className={styles.avatarError}>{saveError}</p>}
 
             <div className={styles.field}>
-              <label htmlFor="name" className={styles.label}>Nom</label>
+              <label htmlFor="name" className={styles.label}>{t('auth.name')}</label>
               <input
                 id="name"
                 name="name"
@@ -144,7 +147,7 @@ export default function Profile() {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="email" className={styles.label}>Email</label>
+              <label htmlFor="email" className={styles.label}>{t('common.email')}</label>
               <input
                 id="email"
                 name="email"
@@ -157,7 +160,7 @@ export default function Profile() {
             </div>
 
             <PasswordField
-              label="Nouveau mot de passe (laisser vide pour ne pas changer)"
+              label={t('profile.newPassword')}
               id="password"
               name="password"
               value={form.password}
@@ -168,10 +171,10 @@ export default function Profile() {
 
             <div className={styles.formActions}>
               <button type="button" className={styles.cancelButton} onClick={cancelEditing}>
-                Annuler
+                {t('profile.cancel')}
               </button>
               <button type="submit" className={styles.saveButton} disabled={isSaving}>
-                {isSaving ? 'Enregistrement...' : 'Enregistrer'}
+                {isSaving ? t('profile.saving') : t('profile.save')}
               </button>
             </div>
           </form>

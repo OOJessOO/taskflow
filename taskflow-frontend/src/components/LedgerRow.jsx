@@ -1,18 +1,9 @@
 import StampBadge from './StampBadge';
+import { useLanguage } from '../context/LanguageContext';
 import styles from './LedgerRow.module.css';
 
-const STATUS_LABELS = {
-  todo: 'À faire',
-  in_progress: 'En cours',
-  done: 'Terminé',
-};
-
-function formatDate(dateString) {
-  if (!dateString) return '—';
-  return new Date(dateString).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-}
-
 export default function LedgerRow({ task, onOpen, onToggleStatus }) {
+  const { t, formatDate } = useLanguage();
   const isDone = task.status === 'done';
 
   return (
@@ -20,7 +11,7 @@ export default function LedgerRow({ task, onOpen, onToggleStatus }) {
       <button
         className={styles.checkbox}
         onClick={() => onToggleStatus(task)}
-        aria-label={isDone ? 'Marquer comme non terminée' : 'Marquer comme terminée'}
+        aria-label={isDone ? t('ledger.markUndone') : t('ledger.markDone')}
       >
         {isDone ? '✓' : ''}
       </button>
@@ -29,7 +20,7 @@ export default function LedgerRow({ task, onOpen, onToggleStatus }) {
         {task.title}
       </button>
 
-      <span className={styles.status}>{STATUS_LABELS[task.status]}</span>
+      <span className={styles.status}>{t(`status.${task.status}`)}</span>
 
       <span className={styles.date}>{formatDate(task.dueDate)}</span>
 

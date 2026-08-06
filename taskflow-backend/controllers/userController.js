@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 async function updateAvatar(req, res, next) {
   try {
     if (!req.file) {
-      return res.status(400).json({ message: 'Aucun fichier envoyé.' });
+      return res.status(400).json({ code: 'NO_FILE_UPLOADED' });
     }
 
     const user = await User.findByPk(req.user.id);
@@ -33,7 +33,7 @@ async function updateProfile(req, res, next) {
     if (email && email !== user.email) {
       const existing = await User.findOne({ where: { email } });
       if (existing) {
-        return res.status(409).json({ message: 'Cet email est déjà utilisé par un autre compte.' });
+        return res.status(409).json({ code: 'EMAIL_ALREADY_USED' });
       }
       user.email = email;
     }
@@ -44,7 +44,7 @@ async function updateProfile(req, res, next) {
 
     if (password) {
       if (password.length < 6) {
-        return res.status(400).json({ message: 'Le mot de passe doit contenir au moins 6 caractères.' });
+        return res.status(400).json({ code: 'PASSWORD_TOO_SHORT' });
       }
       user.password = await bcrypt.hash(password, 10);
     }

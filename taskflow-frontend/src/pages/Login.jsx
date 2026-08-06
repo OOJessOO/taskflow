@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { getErrorMessage } from '../utils/errorMessage';
 import FormField from '../components/FormField';
 import styles from './AuthPages.module.css';
 
 export default function Login() {
   const { login } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -23,7 +26,7 @@ export default function Login() {
       await login(form);
       navigate('/tableau-de-bord');
     } catch (err) {
-      setError(err.response?.data?.message || 'Identifiants invalides.');
+      setError(getErrorMessage(err, t));
     } finally {
       setIsSubmitting(false);
     }
@@ -32,14 +35,14 @@ export default function Login() {
   return (
     <div className={styles.page}>
       <div className={styles.card}>
-        <p className={styles.eyebrow}>Retour au registre</p>
-        <h1 className={styles.title}>Se connecter</h1>
+        <p className={styles.eyebrow}>{t('auth.loginEyebrow')}</p>
+        <h1 className={styles.title}>{t('auth.loginTitle')}</h1>
 
         {error && <div className={styles.error}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <FormField
-            label="Email"
+            label={t('common.email')}
             id="email"
             name="email"
             type="email"
@@ -49,7 +52,7 @@ export default function Login() {
             required
           />
           <FormField
-            label="Mot de passe"
+            label={t('common.password')}
             id="password"
             name="password"
             type="password"
@@ -59,12 +62,12 @@ export default function Login() {
             required
           />
           <button type="submit" className={styles.submit} disabled={isSubmitting}>
-            {isSubmitting ? 'Connexion...' : 'Se connecter'}
+            {isSubmitting ? t('auth.loginSubmitting') : t('auth.loginTitle')}
           </button>
         </form>
 
         <p className={styles.switch}>
-          Pas encore de compte ? <Link to="/inscription">S'inscrire</Link>
+          {t('auth.loginNoAccount')} <Link to="/inscription">{t('nav.register')}</Link>
         </p>
       </div>
     </div>

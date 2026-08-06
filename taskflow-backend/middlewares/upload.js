@@ -16,7 +16,9 @@ function fileFilter(req, file, cb) {
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Format non supporté. Utilise JPG, PNG ou WebP.'));
+    const error = new Error('Format non supporté.');
+    error.code = 'UNSUPPORTED_FILE_FORMAT';
+    cb(error);
   }
 }
 

@@ -20,7 +20,7 @@ async function createList(req, res, next) {
     const { title } = req.body;
 
     if (!title) {
-      return res.status(400).json({ message: 'Le titre de la liste est requis.' });
+      return res.status(400).json({ code: 'LIST_TITLE_REQUIRED' });
     }
 
     const list = await List.create({ title, userId: req.user.id });
@@ -38,7 +38,7 @@ async function updateList(req, res, next) {
 
     const list = await List.findOne({ where: { id, userId: req.user.id } });
     if (!list) {
-      return res.status(404).json({ message: 'Liste introuvable.' });
+      return res.status(404).json({ code: 'LIST_NOT_FOUND' });
     }
 
     list.title = title ?? list.title;
@@ -57,11 +57,11 @@ async function deleteList(req, res, next) {
 
     const list = await List.findOne({ where: { id, userId: req.user.id } });
     if (!list) {
-      return res.status(404).json({ message: 'Liste introuvable.' });
+      return res.status(404).json({ code: 'LIST_NOT_FOUND' });
     }
 
     await list.destroy();
-    res.json({ message: 'Liste supprimée.' });
+    res.json({ code: 'LIST_DELETED' });
   } catch (error) {
     next(error);
   }

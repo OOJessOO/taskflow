@@ -3,17 +3,19 @@ import AppShell from '../components/AppShell';
 import LedgerRow from '../components/LedgerRow';
 import TaskModal from '../components/TaskModal';
 import { useTasks } from '../context/TasksContext';
+import { useLanguage } from '../context/LanguageContext';
 import styles from './Dashboard.module.css';
-
-const STATUS_FILTERS = [
-  { value: '', label: 'Toutes' },
-  { value: 'todo', label: 'À faire' },
-  { value: 'in_progress', label: 'En cours' },
-  { value: 'done', label: 'Terminées' },
-];
 
 export default function Dashboard() {
   const { lists, tasks, isLoading, loadAll, addList, removeList, addTask, editTask, removeTask } = useTasks();
+  const { t } = useLanguage();
+
+  const STATUS_FILTERS = [
+    { value: '', label: t('status.all') },
+    { value: 'todo', label: t('status.todo') },
+    { value: 'in_progress', label: t('status.in_progress') },
+    { value: 'done', label: t('status.donePlural') },
+  ];
   const [activeListId, setActiveListId] = useState(null);
   const [statusFilter, setStatusFilter] = useState('');
   const [search, setSearch] = useState('');
@@ -48,9 +50,7 @@ export default function Dashboard() {
  async function handleDeleteList(e, listId) {
   e.stopPropagation(); // empêche le clic de sélectionner la liste en plus de la supprimer
 
-  const confirmed = window.confirm(
-    'Supprimer cette liste ? Toutes les tâches qu\'elle contient seront supprimées aussi.'
-  );
+  const confirmed = window.confirm(t('dashboard.deleteListConfirm'));
   if (!confirmed) return;
 
   await removeList(listId);
@@ -92,8 +92,8 @@ export default function Dashboard() {
     <AppShell>
       <div className={styles.header}>
         <div>
-          <p className={styles.eyebrow}>Registre du jour</p>
-          <h1 className={styles.title}>Tableau de bord</h1>
+          <p className={styles.eyebrow}>{t('dashboard.eyebrow')}</p>
+          <h1 className={styles.title}>{t('dashboard.title')}</h1>
         </div>
       </div>
 
@@ -111,7 +111,7 @@ export default function Dashboard() {
     <button
       className={styles.tabDelete}
       onClick={(e) => handleDeleteList(e, list.id)}
-      aria-label={`Supprimer la liste ${list.title}`}
+      aria-label={t('dashboard.deleteListAria', { title: list.title })}
     >
       ✕
     </button>
@@ -121,7 +121,7 @@ export default function Dashboard() {
           <form onSubmit={handleAddList} className={styles.newListForm}>
             <input
               className={styles.newListInput}
-              placeholder="+ Nouvelle liste"
+              placeholder={t('dashboard.newListPlaceholder')}
               value={newListTitle}
               onChange={(e) => setNewListTitle(e.target.value)}
             />
@@ -132,7 +132,7 @@ export default function Dashboard() {
           <div className={styles.toolbar}>
             <input
               className={styles.search}
-              placeholder="Rechercher une tâche..."
+              placeholder={t('dashboard.searchPlaceholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -150,22 +150,22 @@ export default function Dashboard() {
               onClick={openNewTaskModal}
               disabled={!activeListId}
             >
-              + Ajouter une tâche
+              {t('dashboard.addTask')}
             </button>
           </div>
 
           <div className={styles.ledger}>
-            {isLoading && <p className={styles.emptyState}>Chargement du registre...</p>}
+            {isLoading && <p className={styles.emptyState}>{t('dashboard.loading')}</p>}
 
             {!isLoading && lists.length === 0 && (
               <p className={styles.emptyState}>
-                Aucune liste pour l'instant. Crée ta première liste à gauche pour commencer.
+                {t('dashboard.noLists')}
               </p>
             )}
 
             {!isLoading && lists.length > 0 && filteredTasks.length === 0 && (
               <p className={styles.emptyState}>
-                Rien ici. Ajoute une tâche pour ouvrir cette page du registre.
+                {t('dashboard.empty')}
               </p>
             )}
 

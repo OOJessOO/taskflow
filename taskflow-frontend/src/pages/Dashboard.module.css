@@ -6,7 +6,6 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-ochre);
   margin: 0 0 var(--space-1);
 }
@@ -170,4 +169,44 @@
   background: var(--color-brick);
   color: var(--color-paper);
   border-color: var(--color-brick);
+}
+
+@media (max-width: 720px) {
+  .tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+  }
+
+  .tabWrapper {
+    flex-shrink: 0;
+  }
+
+  .newListForm {
+    margin-top: 0;
+  }
+
+  .newListInput {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search,
+  .filter {
+    width: 100%;
+  }
+
+  .addTaskButton {
+    width: 100%;
+  }
+
+  .ledger {
+    padding: 0 var(--space-3);
+  }
 }

@@ -32,13 +32,13 @@ async function createTask(req, res, next) {
     const { title, description, dueDate, priority, status, listId } = req.body;
 
     if (!title || !listId) {
-      return res.status(400).json({ message: 'Le titre et la liste sont requis.' });
+      return res.status(400).json({ code: 'TASK_FIELDS_REQUIRED' });
     }
 
     // Vérifie que la liste appartient bien à l'utilisateur
     const list = await List.findOne({ where: { id: listId, userId: req.user.id } });
     if (!list) {
-      return res.status(404).json({ message: 'Liste introuvable.' });
+      return res.status(404).json({ code: 'LIST_NOT_FOUND' });
     }
 
     const task = await Task.create({
@@ -65,7 +65,7 @@ async function updateTask(req, res, next) {
 
     const task = await Task.findOne({ where: { id, userId: req.user.id } });
     if (!task) {
-      return res.status(404).json({ message: 'Tâche introuvable.' });
+      return res.status(404).json({ code: 'TASK_NOT_FOUND' });
     }
 
     task.title = title ?? task.title;
@@ -89,11 +89,11 @@ async function deleteTask(req, res, next) {
 
     const task = await Task.findOne({ where: { id, userId: req.user.id } });
     if (!task) {
-      return res.status(404).json({ message: 'Tâche introuvable.' });
+      return res.status(404).json({ code: 'TASK_NOT_FOUND' });
     }
 
     await task.destroy();
-    res.json({ message: 'Tâche supprimée.' });
+    res.json({ code: 'TASK_DELETED' });
   } catch (error) {
     next(error);
   }

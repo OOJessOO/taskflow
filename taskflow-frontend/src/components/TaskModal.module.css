@@ -31,7 +31,6 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--color-ochre);
   margin: 0;
 }
@@ -55,7 +54,6 @@
 .label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-ink-soft);
 }
@@ -132,4 +130,36 @@
 .saveButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .overlay {
+    padding: var(--space-3);
+    align-items: flex-end;
+  }
+
+  .modal {
+    padding: var(--space-4);
+    max-height: 92vh;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .deleteButton,
+  .saveButton {
+    width: 100%;
+    text-align: center;
+  }
+
+  .saveButton {
+    margin-left: 0;
+  }
 }

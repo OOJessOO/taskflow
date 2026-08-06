@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
+import { getErrorMessage } from '../utils/errorMessage';
 import FormField from '../components/FormField';
 import styles from './AuthPages.module.css';
 
 export default function Register() {
   const { register } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
@@ -23,7 +26,7 @@ export default function Register() {
       await register(form);
       navigate('/tableau-de-bord');
     } catch (err) {
-      setError(err.response?.data?.message || 'Une erreur est survenue. Réessaie.');
+      setError(getErrorMessage(err, t));
     } finally {
       setIsSubmitting(false);
     }
@@ -32,14 +35,14 @@ export default function Register() {
   return (
     <div className={styles.page}>
       <div className={styles.card}>
-        <p className={styles.eyebrow}>Nouveau registre</p>
-        <h1 className={styles.title}>Créer un compte</h1>
+        <p className={styles.eyebrow}>{t('auth.registerEyebrow')}</p>
+        <h1 className={styles.title}>{t('auth.registerTitle')}</h1>
 
         {error && <div className={styles.error}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <FormField
-            label="Nom"
+            label={t('auth.name')}
             id="name"
             name="name"
             type="text"
@@ -49,7 +52,7 @@ export default function Register() {
             required
           />
           <FormField
-            label="Email"
+            label={t('common.email')}
             id="email"
             name="email"
             type="email"
@@ -59,7 +62,7 @@ export default function Register() {
             required
           />
           <FormField
-            label="Mot de passe"
+            label={t('common.password')}
             id="password"
             name="password"
             type="password"
@@ -70,12 +73,12 @@ export default function Register() {
             required
           />
           <button type="submit" className={styles.submit} disabled={isSubmitting}>
-            {isSubmitting ? 'Création...' : 'Ouvrir mon registre'}
+            {isSubmitting ? t('auth.registerSubmitting') : t('auth.registerSubmit')}
           </button>
         </form>
 
         <p className={styles.switch}>
-          Déjà un compte ? <Link to="/connexion">Se connecter</Link>
+          {t('auth.registerHasAccount')} <Link to="/connexion">{t('nav.login')}</Link>
         </p>
       </div>
     </div>

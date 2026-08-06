@@ -16,12 +16,22 @@ Le backend doit tourner en parallèle (voir son propre README) pour que l'authen
 
 ```
 src/
-├── components/    → StampBadge, LedgerRow, AppShell, TaskModal, FormField...
+├── components/    → StampBadge, LedgerRow, AppShell, TaskModal, FormField, LanguageToggle...
 ├── pages/          → Landing, Login, Register, Dashboard, Profile, NotFound
 ├── services/        → appels API (api.js, authService, listService, taskService)
-├── context/          → AuthContext, TasksContext (état global)
+├── context/          → AuthContext, TasksContext, LanguageContext (état global)
+├── i18n/             → locales/ (dictionnaires fr.js et en.js)
+├── utils/            → errorMessage.js (traduction des codes d'erreur backend)
 └── styles/            → tokens.css (couleurs, typographie, espacements)
 ```
+
+## Internationalisation (FR/EN)
+
+L'application est entièrement bilingue. Le changement de langue est disponible via le sélecteur `LanguageToggle.jsx` (landing + sidebar) et se persiste dans le `localStorage`.
+
+- **`i18n/locales/fr.js` / `en.js`** : dictionnaires de traduction (clés organisées par section)
+- **`context/LanguageContext.jsx`** : fournit `t('clé')` (avec interpolation `{param}`), `formatDate()` (locale `fr-FR`/`en-US`) et `setLang()`
+- **`utils/errorMessage.js`** : le backend renvoie des codes d'erreur stables (`INVALID_CREDENTIALS`, `LIST_NOT_FOUND`...) traduits côté frontend selon la langue active
 
 ## Système de design
 

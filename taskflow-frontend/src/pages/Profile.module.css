@@ -2,7 +2,6 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-ochre);
   margin: 0 0 var(--space-1);
 }
@@ -35,7 +34,6 @@
 .label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-ink-soft);
 }
@@ -174,4 +172,32 @@
   color: var(--color-moss);
   font-size: var(--text-xs);
   margin-top: var(--space-2);
+}
+
+@media (max-width: 720px) {
+  .avatarSection {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card {
+    padding: var(--space-2) var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .formActions button {
+    width: 100%;
+  }
 }

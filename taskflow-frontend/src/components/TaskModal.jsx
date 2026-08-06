@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import FormField from './FormField';
+import { useLanguage } from '../context/LanguageContext';
 import styles from './TaskModal.module.css';
 
 export default function TaskModal({ task, onClose, onSave, onDelete }) {
+  const { t } = useLanguage();
   const isEditing = Boolean(task?.id);
 
   const [form, setForm] = useState({
@@ -32,13 +34,13 @@ export default function TaskModal({ task, onClose, onSave, onDelete }) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <p className={styles.eyebrow}>{isEditing ? 'Fiche existante' : 'Nouvelle fiche'}</p>
-          <button className={styles.closeButton} onClick={onClose} aria-label="Fermer">✕</button>
+          <p className={styles.eyebrow}>{isEditing ? t('taskModal.editing') : t('taskModal.creating')}</p>
+          <button className={styles.closeButton} onClick={onClose} aria-label={t('taskModal.close')}>✕</button>
         </div>
 
         <form onSubmit={handleSubmit}>
           <FormField
-            label="Titre"
+            label={t('taskModal.title')}
             id="title"
             name="title"
             value={form.title}
@@ -48,7 +50,7 @@ export default function TaskModal({ task, onClose, onSave, onDelete }) {
           />
 
           <div className={styles.field}>
-            <label htmlFor="description" className={styles.label}>Description</label>
+            <label htmlFor="description" className={styles.label}>{t('taskModal.description')}</label>
             <textarea
               id="description"
               name="description"
@@ -61,7 +63,7 @@ export default function TaskModal({ task, onClose, onSave, onDelete }) {
 
           <div className={styles.row}>
             <FormField
-              label="Échéance"
+              label={t('taskModal.dueDate')}
               id="dueDate"
               name="dueDate"
               type="date"
@@ -70,21 +72,21 @@ export default function TaskModal({ task, onClose, onSave, onDelete }) {
             />
 
             <div className={styles.field}>
-              <label htmlFor="priority" className={styles.label}>Priorité</label>
+              <label htmlFor="priority" className={styles.label}>{t('taskModal.priority')}</label>
               <select id="priority" name="priority" className={styles.select} value={form.priority} onChange={handleChange}>
-                <option value="low">Léger</option>
-                <option value="medium">Moyen</option>
-                <option value="high">Urgent</option>
+                <option value="low">{t('priority.low')}</option>
+                <option value="medium">{t('priority.medium')}</option>
+                <option value="high">{t('priority.high')}</option>
               </select>
             </div>
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="status" className={styles.label}>Statut</label>
+            <label htmlFor="status" className={styles.label}>{t('taskModal.status')}</label>
             <select id="status" name="status" className={styles.select} value={form.status} onChange={handleChange}>
-              <option value="todo">À faire</option>
-              <option value="in_progress">En cours</option>
-              <option value="done">Terminé</option>
+              <option value="todo">{t('status.todo')}</option>
+              <option value="in_progress">{t('status.in_progress')}</option>
+              <option value="done">{t('status.done')}</option>
             </select>
           </div>
 
@@ -95,11 +97,11 @@ export default function TaskModal({ task, onClose, onSave, onDelete }) {
                 className={styles.deleteButton}
                 onClick={() => onDelete(task.id)}
               >
-                Supprimer
+                {t('taskModal.delete')}
               </button>
             )}
             <button type="submit" className={styles.saveButton} disabled={isSaving}>
-              {isSaving ? 'Enregistrement...' : 'Enregistrer'}
+              {isSaving ? t('taskModal.saving') : t('taskModal.save')}
             </button>
           </div>
         </form>

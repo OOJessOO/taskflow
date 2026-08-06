@@ -10,12 +10,12 @@ async function register(req, res, next) {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Nom, email et mot de passe sont requis.' });
+      return res.status(400).json({ code: 'REGISTER_FIELDS_REQUIRED' });
     }
 
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
-      return res.status(409).json({ message: 'Un compte existe déjà avec cet email.' });
+      return res.status(409).json({ code: 'EMAIL_TAKEN' });
     }
 
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
@@ -38,17 +38,17 @@ async function login(req, res, next) {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email et mot de passe sont requis.' });
+      return res.status(400).json({ code: 'LOGIN_FIELDS_REQUIRED' });
     }
 
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(401).json({ message: 'Identifiants invalides.' });
+      return res.status(401).json({ code: 'INVALID_CREDENTIALS' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Identifiants invalides.' });
+      return res.status(401).json({ code: 'INVALID_CREDENTIALS' });
     }
 
     const token = generateToken(user.id);

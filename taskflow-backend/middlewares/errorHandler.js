@@ -9,14 +9,14 @@ function errorHandler(err, req, res, next) {
   // Erreurs de validation Sequelize
   if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
     return res.status(400).json({
-      message: 'Erreur de validation.',
+      code: 'VALIDATION_ERROR',
       errors: err.errors.map((e) => e.message),
     });
   }
 
   const statusCode = err.statusCode || 500;
   res.status(statusCode).json({
-    message: err.message || 'Erreur interne du serveur.',
+    code: err.code || 'INTERNAL_ERROR',
   });
 }
 
