@@ -20,7 +20,6 @@ export default {
   },
 
   landing: {
-    eyebrow: 'Vol. 01 — Personal edition',
     title1: 'Your days finally',
     title2: 'have a ledger.',
     subtitle1: 'No more lists that get lost or sticky notes piling up.',

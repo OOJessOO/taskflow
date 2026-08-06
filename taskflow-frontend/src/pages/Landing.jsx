@@ -18,7 +18,6 @@ export default function Landing() {
       </header>
 
       <section className={styles.hero}>
-  <p className={styles.eyebrow}>{t('landing.eyebrow')}</p>
   <h1 className={styles.title}>
     {t('landing.title1')}<br />{t('landing.title2')}
   </h1>

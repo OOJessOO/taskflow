@@ -20,7 +20,6 @@ export default {
   },
 
   landing: {
-    eyebrow: 'Vol. 01 — Édition personnelle',
     title1: 'Vos journées ont',
     title2: 'enfin un registre.',
     subtitle1: 'Fini les listes qui se perdent et les post-it qui s\'accumulent.',
