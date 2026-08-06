@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+const userRoutes = require('./routes/userRoutes');
 
 const { sequelize } = require('./models');
 const authRoutes = require('./routes/authRoutes');
@@ -13,6 +15,8 @@ const app = express();
 // --- Middlewares globaux ---
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/users', userRoutes);
 
 // --- Routes ---
 app.get('/', (req, res) => {

@@ -24,9 +24,9 @@ async function register(req, res, next) {
     const token = generateToken(user.id);
 
     res.status(201).json({
-      token,
-      user: { id: user.id, name: user.name, email: user.email },
-    });
+  token,
+  user: { id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl, createdAt: user.createdAt },
+});
   } catch (error) {
     next(error);
   }
@@ -53,10 +53,10 @@ async function login(req, res, next) {
 
     const token = generateToken(user.id);
 
-    res.json({
-      token,
-      user: { id: user.id, name: user.name, email: user.email },
-    });
+  res.json({
+  token,
+  user: { id: user.id, name: user.name, email: user.email, avatarUrl: user.avatarUrl, createdAt: user.createdAt },
+});
   } catch (error) {
     next(error);
   }

@@ -13,16 +13,16 @@ export default function Landing() {
       </header>
 
       <section className={styles.hero}>
-        <p className={styles.eyebrow}>Vol. 01 — Édition personnelle</p>
-        <h1 className={styles.title}>
-          Tenez le registre<br />de ce qui compte vraiment.
-        </h1>
-        <p className={styles.subtitle}>
-          TaskFlow n'est pas un tableau de plus. C'est un carnet de bord :
-          chaque tâche a sa ligne, chaque priorité son tampon, chaque jour sa page.
-        </p>
-        <Link to="/inscription" className={styles.heroButton}>Commencer mon registre →</Link>
-      </section>
+  <p className={styles.eyebrow}>Vol. 01 — Édition personnelle</p>
+  <h1 className={styles.title}>
+    Vos journées ont<br />enfin un registre.
+  </h1>
+  <p className={styles.subtitle}>
+    Fini les listes qui se perdent et les post-it qui s'accumulent.
+    Un carnet vivant où chaque tâche trouve sa ligne, chaque priorité son tampon.
+  </p>
+  <Link to="/inscription" className={styles.heroButton}>Ouvrir mon registre →</Link>
+</section>
 
       <section className={styles.ledgerPreview} aria-hidden="true">
         <div className={styles.previewRow}>
@@ -42,9 +42,12 @@ export default function Landing() {
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <p>TaskFlow — projet personnel, réalisé en React / Node / PostgreSQL.</p>
-      </footer>
+ <footer className={styles.footer}>
+  <p className={styles.tagline}>Tenu au jour le jour, ligne après ligne.</p>
+  <p className={styles.signature}>
+    © Andriamampionona Fenohery RAZANAJATOVO <span className={styles.handle}>(OOJessOO)</span>
+  </p>
+</footer>
     </div>
   );
 }

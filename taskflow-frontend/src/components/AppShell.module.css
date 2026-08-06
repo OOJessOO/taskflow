@@ -87,8 +87,11 @@
 
 .userName {
   font-size: var(--text-sm);
-  margin: 0 0 var(--space-2);
+  margin: 0;
   opacity: 0.9;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .logoutButton {
@@ -108,6 +111,12 @@
 
 .content {
   padding: var(--space-8) var(--space-12);
+}
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
 }
 
 @media (max-width: 720px) {

@@ -14,11 +14,11 @@
 .brandMark {
   font-family: var(--font-mono);
   font-weight: 700;
-  border: 1.5px solid var(--color-ink);
+  font-size: var(--text-lg);
+  border: 2px solid var(--color-ink);
   border-radius: var(--radius-sm);
-  padding: 2px 8px;
+  padding: var(--space-2) var(--space-3);
 }
-
 .headerNav {
   display: flex;
   align-items: center;
@@ -160,4 +160,23 @@
   font-size: var(--text-xs);
   color: var(--color-ink-soft);
   font-family: var(--font-mono);
+}
+.tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+  margin: 0 0 var(--space-2);
+}
+
+.signature {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-ink-soft);
+}
+
+.handle {
+  color: var(--color-ochre);
+  font-weight: 700;
 }

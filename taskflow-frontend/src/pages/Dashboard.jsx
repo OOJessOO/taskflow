@@ -13,7 +13,7 @@ const STATUS_FILTERS = [
 ];
 
 export default function Dashboard() {
-  const { lists, tasks, isLoading, loadAll, addList, addTask, editTask, removeTask } = useTasks();
+  const { lists, tasks, isLoading, loadAll, addList, removeList, addTask, editTask, removeTask } = useTasks();
   const [activeListId, setActiveListId] = useState(null);
   const [statusFilter, setStatusFilter] = useState('');
   const [search, setSearch] = useState('');
@@ -45,7 +45,20 @@ export default function Dashboard() {
     setNewListTitle('');
     setActiveListId(list.id);
   }
+ async function handleDeleteList(e, listId) {
+  e.stopPropagation(); // empêche le clic de sélectionner la liste en plus de la supprimer
 
+  const confirmed = window.confirm(
+    'Supprimer cette liste ? Toutes les tâches qu\'elle contient seront supprimées aussi.'
+  );
+  if (!confirmed) return;
+
+  await removeList(listId);
+
+  if (activeListId === listId) {
+    setActiveListId(null); // le useEffect existant sélectionnera automatiquement une autre liste
+  }
+}
   function handleToggleStatus(task) {
     const nextStatus = task.status === 'done' ? 'todo' : 'done';
     editTask(task.id, { status: nextStatus });
@@ -88,14 +101,22 @@ export default function Dashboard() {
         {/* Colonne "intercalaires" : les listes */}
         <div className={styles.tabs}>
           {lists.map((list) => (
-            <button
-              key={list.id}
-              className={`${styles.tab} ${activeListId === list.id ? styles.tabActive : ''}`}
-              onClick={() => setActiveListId(list.id)}
-            >
-              {list.title}
-            </button>
-          ))}
+  <div key={list.id} className={styles.tabWrapper}>
+    <button
+      className={`${styles.tab} ${activeListId === list.id ? styles.tabActive : ''}`}
+      onClick={() => setActiveListId(list.id)}
+    >
+      {list.title}
+    </button>
+    <button
+      className={styles.tabDelete}
+      onClick={(e) => handleDeleteList(e, list.id)}
+      aria-label={`Supprimer la liste ${list.title}`}
+    >
+      ✕
+    </button>
+  </div>
+))}
 
           <form onSubmit={handleAddList} className={styles.newListForm}>
             <input

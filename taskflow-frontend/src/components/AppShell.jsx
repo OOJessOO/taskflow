@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './AppShell.module.css';
+import Avatar from './Avatar';
 
 export default function AppShell({ children }) {
   const { user, logout } = useAuth();
@@ -24,12 +25,15 @@ export default function AppShell({ children }) {
           <Link to="/profil" className={styles.navLink}>Profil</Link>
         </nav>
 
-        <div className={styles.userBlock}>
-          <p className={styles.userName}>{user?.name}</p>
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            Se déconnecter
-          </button>
-        </div>
+<div className={styles.userBlock}>
+  <div className={styles.userInfo}>
+    <Avatar user={user} size={36} />
+    <p className={styles.userName}>{user?.name}</p>
+  </div>
+  <button className={styles.logoutButton} onClick={handleLogout}>
+    Se déconnecter
+  </button>
+</div>
       </aside>
 
       <main className={styles.content}>{children}</main>

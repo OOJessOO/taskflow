@@ -21,6 +21,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false, // stocké déjà hashé (bcrypt), jamais en clair
   },
+  avatarUrl: {
+  type: DataTypes.STRING,
+  allowNull: true,
+},
 }, {
   tableName: 'users',
   timestamps: true, // ajoute createdAt / updatedAt automatiquement
