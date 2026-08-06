@@ -1,0 +1,31 @@
+# Déploiement du backend TaskFlow sur Render (plan gratuit)
+# Documentation : https://render.com/docs/blueprint-spec
+#
+# IMPORTANT : la base de données est hébergée sur Neon (gratuite et permanente),
+# la valeur DATABASE_URL est donc collée dans le dashboard Render (sync: false).
+# Alternativement, supprimez la ligne "sync: false" et ajoutez :
+#   fromDatabase:
+#     name: taskflow-db
+#     property: connectionString
+# (dans ce cas ajoutez la section "databases" ci-dessous, mais la base gratuite
+#  de Render expire au bout de 30 jours — Neon est recommandée).
+
+services:
+  - type: web
+    name: taskflow-api
+    runtime: node
+    rootDir: taskflow-backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.20.0
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: DATABASE_URL
+        sync: false
