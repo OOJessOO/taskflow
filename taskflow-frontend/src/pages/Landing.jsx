@@ -49,7 +49,7 @@ export default function Landing() {
  <footer className={styles.footer}>
   <p className={styles.tagline}>{t('landing.tagline')}</p>
   <p className={styles.signature}>
-    © Andriamampionona Fenohery RAZANAJATOVO <span className={styles.handle}>(OOJessOO)</span>
+    © OO Jess OO
   </p>
 </footer>
     </div>
